@@ -19,7 +19,7 @@ func str_to_int(str string) int {
 }
 
 func main() {
-	f, err := os.ReadFile("day02/input.txt")
+	f, err := os.ReadFile("2015/day02/input.txt")
 	if err != nil {
 		log.Fatal(err)
 	}

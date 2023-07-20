@@ -13,7 +13,7 @@ type house struct {
 }
 
 func main() {
-	f, err := os.ReadFile("day03/input.txt")
+	f, err := os.ReadFile("2015/day03/input.txt")
 	if err != nil {
 		log.Fatalf("Unable to read %v", err)
 	}

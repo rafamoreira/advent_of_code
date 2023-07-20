@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	f, err := os.ReadFile("day01/input.txt")
+	f, err := os.ReadFile("2015/day01/input.txt")
 	if err != nil {
 		log.Fatalf("Unable to read %v", err)
 	}
