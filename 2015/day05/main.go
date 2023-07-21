@@ -50,15 +50,25 @@ func main() {
 		}
 	}(file)
 
+	fmt.Println("Enter 1 for part 1 or 2 for part 2")
+	var part int
+	n, err := fmt.Scanln(&part)
+	if n != 1 || err != nil {
+		fmt.Println("invalid input")
+	}
 	scanner := bufio.NewScanner(file)
 	var niceStrings = 0
 	for scanner.Scan() {
-		forbidden := hasForbidden(scanner.Text())
-		hasVowels := countVowels(scanner.Text()) >= 3
-		hasRepeated := hasRepeated(scanner.Text())
+		if part == 1 {
+			forbidden := hasForbidden(scanner.Text())
+			hasVowels := countVowels(scanner.Text()) >= 3
+			hasRepeated := hasRepeated(scanner.Text())
 
-		if !forbidden && hasVowels && hasRepeated {
-			niceStrings++
+			if !forbidden && hasVowels && hasRepeated {
+				niceStrings++
+			}
+		} else {
+			fmt.Println("part 2 not implemented")
 		}
 	}
 
