@@ -38,6 +38,24 @@ func hasRepeated(str string) bool {
 	return false
 }
 
+func hasScatteredRepeat(str string) bool {
+	for i := 0; i < len(str); i++ {
+		if i < len(str)-2 && str[i] == str[i+2] {
+			return true
+		}
+	}
+	return false
+}
+
+func hasRepeatedPair(str string) bool {
+	for i := 0; i < len(str); i++ {
+		if i < len(str)-3 && strings.Contains(str[i+2:], str[i:i+2]) {
+			return true
+		}
+	}
+	return false
+}
+
 func main() {
 	file, err := os.Open("2015/day05/input.txt")
 	if err != nil {
@@ -68,7 +86,11 @@ func main() {
 				niceStrings++
 			}
 		} else {
-			fmt.Println("part 2 not implemented")
+			hasScatteredRepeat := hasScatteredRepeat(scanner.Text())
+			hasRepeatedPair := hasRepeatedPair(scanner.Text())
+			if hasScatteredRepeat && hasRepeatedPair {
+				niceStrings++
+			}
 		}
 	}
 
