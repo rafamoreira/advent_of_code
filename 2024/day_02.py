@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 filename = "day_02.input"
 
 with open(filename) as file:
@@ -46,9 +48,13 @@ for report in data:
     if safe:
         count += 1
     else:
-        safe, _, _ = validate_report(report[:i] + report[i + 1 :], increasing)
-        if safe:
-            count += 1
+        for i in range(len(report)):
+            r = deepcopy(report)
+            _ = r.pop(i)
+            safe, _, _ = validate_report(r)
+            if safe:
+                count += 1
+                break
 
 
 print("count: ", count)
