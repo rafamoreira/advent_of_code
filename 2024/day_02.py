@@ -6,34 +6,49 @@ with open(filename) as file:
 data = [[int(x) for x in y.split(" ")] for y in data]
 
 
-def validate_report(report: list[int]) -> bool:
-    increasing = None
-    while len(report) > 1:
-        cur = report.pop(0)
-        nex = report[0]
-        if cur == nex:
-            return False
-        inc = cur + 3
-        dec = cur - 3
-        if nex <= inc and nex > cur:
-            if increasing is None or increasing:
-                increasing = True
-            else:
-                return False
-        elif nex >= dec and nex < cur:
-            if increasing is None or not increasing:
-                increasing = False
-            else:
-                return False
+def is_valid_pair(cur: int, nex: int, increasing: bool | None) -> bool:
+    if cur == nex:
+        return False
+    inc = cur + 3
+    dec = cur - 3
+    if nex <= inc and nex > cur:
+        if increasing:
+            return True
         else:
             return False
-    return True
+    elif nex >= dec and nex < cur:
+        if not increasing:
+            return True
+        else:
+            return False
+    else:
+        return False
+
+
+def validate_report(
+    report: list[int], increasing: None | bool = None
+) -> tuple[bool, int, bool]:
+    i = 0
+    while i < len(report) - 1:
+        cur = report[i]
+        nex = report[i + 1]
+        if increasing is None:
+            increasing = cur < nex
+        if not is_valid_pair(cur, nex, increasing):
+            return (False, count, increasing)
+        i += 1
+    return (True, count, increasing)
 
 
 count = 0
 for report in data:
-    safe = validate_report(report)
+    safe, i, increasing = validate_report(report)
     if safe:
         count += 1
+    else:
+        safe, _, _ = validate_report(report[:i] + report[i + 1 :], increasing)
+        if safe:
+            count += 1
+
 
 print("count: ", count)
